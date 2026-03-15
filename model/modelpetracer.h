@@ -11,7 +11,7 @@ class ModelPETracer : public ModelMarkov {
 public:
     ModelPETracer(const char *model_name, string model_params, StateFreqType freq, string freq_params, PhyloTree *tree);
 
-    virtual void init(const char *model_name, string model_params, StateFreqType freq, string freq_params);
+    virtual void init(const char *model_name, string model_params, StateFreqType freq, string freq_params) override;
     virtual void startCheckpoint() override;
     virtual void saveCheckpoint() override;
     virtual void restoreCheckpoint() override;

@@ -41,6 +41,7 @@ void ModelPETracer::init(const char *model_name, string model_params, StateFreqT
 
     if (!model_params.empty()) {
         readRates(model_params);
+        fixed_parameters = !Params::getInstance().optimize_from_given_params;
     }
 
     decomposeRateMatrix();
@@ -159,6 +160,10 @@ void ModelPETracer::getRateMatrix(double *rate_mat) {
 
 void ModelPETracer::setRateMatrix(double *rate_mat) {
     memcpy(rates, rate_mat, sizeof(double) * getNumRateEntries());
+    decomposeRateMatrix();
+    if (phylo_tree) {
+        phylo_tree->clearAllPartialLH();
+    }
 }
 
 void ModelPETracer::getStateFrequency(double *freq, int mixture) {
