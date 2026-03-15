@@ -26,7 +26,6 @@ cmake-build-debug/
 *.ipch
 *.log
 /.vs/
-example/
 sprng/
 terraphast/
 test_scripts/
@@ -37,3 +36,4 @@ zlib-1.2.7/
 softwipe_build
 build_local.sh
 build-llvm/
+example/petracer_demo/
