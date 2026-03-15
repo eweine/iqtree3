@@ -37,7 +37,7 @@ void ModelPETracer::init(const char *model_name, string model_params, StateFreqT
     for (int i = 0; i < getNumRateEntries(); ++i) {
         rates[i] = 1.0;
     }
-    num_params = getNumRateEntries();
+    num_params = max(0, getNumRateEntries() - 1);
 
     if (!model_params.empty()) {
         readRates(model_params);
@@ -151,7 +151,6 @@ void ModelPETracer::readRates(string str) noexcept(false) {
             ++end_pos;
         }
     }
-    num_params = getNumRateEntries();
 }
 
 void ModelPETracer::getRateMatrix(double *rate_mat) {
@@ -265,7 +264,7 @@ void ModelPETracer::decomposeRateMatrix() {
         raw_sum += rates[state - 1];
     }
     if (raw_sum <= 0.0) {
-        throw "PETRACER requires at least one positive edit rate";
+        return;
     }
 
     double scale = total_num_subst / raw_sum;
@@ -278,7 +277,7 @@ void ModelPETracer::decomposeRateMatrix() {
 void ModelPETracer::setBounds(double *lower_bound, double *upper_bound, bool *bound_check) {
     int ndim = getNDim();
     for (int i = 1; i <= ndim; ++i) {
-        lower_bound[i] = 0.0;
+        lower_bound[i] = MIN_RATE;
         upper_bound[i] = MAX_RATE;
         bound_check[i] = false;
     }
