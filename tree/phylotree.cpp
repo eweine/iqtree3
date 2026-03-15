@@ -2630,7 +2630,11 @@ void PhyloTree::optimizeOneBranch(PhyloNode *node1, PhyloNode *node2, bool clear
 
     double current_len = current_it->length;
     double ferror, optx;
-    ASSERT(current_len >= 0.0);
+    if (current_len < params->min_branch_length) {
+        current_len = params->min_branch_length;
+        current_it->length = current_len;
+        current_it_back->length = current_len;
+    }
     theta_computed = false;
 //    mem_slots.cleanup();
     if (optimize_by_newton) {
@@ -2657,6 +2661,9 @@ void PhyloTree::optimizeOneBranch(PhyloNode *node1, PhyloNode *node2, bool clear
         }
     }
 
+    if (optx < params->min_branch_length) {
+        optx = params->min_branch_length;
+    }
     current_it->length = optx;
     current_it_back->length = optx;
     //curScore = -negative_lh;
@@ -6356,4 +6363,3 @@ void PhyloTree::doNNI_simple(NNIMove &move) {
                 *(nei21->split) += *((*it)->split);
     }
 }
-
