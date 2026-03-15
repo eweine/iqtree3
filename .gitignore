@@ -36,3 +36,5 @@ zlib-1.2.7/
 /.direnv/
 /.envrc
 softwipe_build
+build_local.sh
+build-llvm/
