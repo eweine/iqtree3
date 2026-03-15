@@ -2,7 +2,6 @@
 .cproject
 .settings
 .project
-examples
 pll/CMakeFiles/
 pll/Makefile
 pll/cmake_install.cmake
