@@ -12,6 +12,7 @@
 #include "modelbin.h"
 #include "modelcodon.h"
 #include "modelmorphology.h"
+#include "modelpetracer.h"
 #include "modelset.h"
 #include "modelmixture.h"
 #include "modelpomo.h"
@@ -1175,7 +1176,10 @@ ModelSubst* createModel(string model_str, ModelsBlock *models_block,
 	} else if (tree->aln->seq_type == SEQ_CODON) {
 		model = new ModelCodon(model_str.c_str(), model_params, freq_type, freq_params, tree);
 	} else if (tree->aln->seq_type == SEQ_MORPH) {
-		model = new ModelMorphology(model_str.c_str(), model_params, freq_type, freq_params, tree);
+        if (ModelPETracer::validModelName(model_str))
+		    model = new ModelPETracer(model_str.c_str(), model_params, freq_type, freq_params, tree);
+        else
+		    model = new ModelMorphology(model_str.c_str(), model_params, freq_type, freq_params, tree);
 	} else {
 		outError("Unsupported model type");
 	}

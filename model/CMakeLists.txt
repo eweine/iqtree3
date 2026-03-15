@@ -24,6 +24,7 @@ rateheterotachy.cpp rateheterotachy.h
 rateheterotachyinvar.cpp rateheterotachyinvar.h
 modelcodon.cpp modelcodon.h
 modelmorphology.cpp modelmorphology.h
+modelpetracer.cpp modelpetracer.h
 modelmixture.cpp modelmixture.h
 modelunrest.cpp modelunrest.h
 modelliemarkov.cpp modelliemarkov.h
